@@ -21,6 +21,7 @@ class Population:
         self.dlg = PopulationDialog()
         #flag to see if the files are loaded
         self.loaded = 0
+        #tsdfasdddddddd
 	 
     def initGui(self):
         # Create action that will start plugin configuration
