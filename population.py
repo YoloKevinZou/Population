@@ -97,7 +97,7 @@ class Population:
     def validate_entries(self):
         msg = ''
         ui = self.dlg.ui
-        if ui.kmButton.isChecked()==False and ui.mileButton.isChecked()==False:
+        if not (ui.kmButton.isChecked()) and not (ui.mileButton.isChecked()):
             msg = 'You required to choose a distance unit.'
             QMessageBox.warning(self.dlg,"Invalid information",msg)
         else:
@@ -117,7 +117,7 @@ class Population:
             #pass
             #self.canvas.setMapTool(self.clickTool)
             msg = '\n'
-            if self.dlg.ui.kmButton.isChecked()==True:
+            if self.dlg.ui.kmButton.isChecked():
                 msg += 'Buffer Unit:   \tKilometer.'
             else:
                 msg += 'Buffer Unit:   \tMile'
