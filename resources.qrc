@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/plugins/population" >
+        <file>icon.png</file>
+    </qresource>
+</RCC>
