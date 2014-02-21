@@ -19,6 +19,8 @@ class Population:
         self.clickTool = QgsMapToolEmitPoint(self.canvas)
         #create our GUI dialog
         self.dlg = PopulationDialog()
+        #flag to see if the files are loaded
+        self.loaded = 0
 	 
     def initGui(self):
         # Create action that will start plugin configuration
@@ -56,7 +58,9 @@ class Population:
 	
     #load census files on map
     def loadFiles(self):
-    
+        
+        #set the loaded flag to 1 which means the file are loaded
+        self.loaded = 1;
         #load the shape files into vector later
         self.roads = QgsVectorLayer("C:/Users/Kevin/Desktop/Denver/lkA08031.zip", "roads", "ogr")
         self.landMarkPolygon = QgsVectorLayer("C:/Users/Kevin/Desktop/Denver/lpy08031.zip", "LandMark Polygons", "ogr")
@@ -74,11 +78,19 @@ class Population:
     #remove the census files on map
     def removeFiles(self):
         
-        QgsMapLayerRegistry.instance().removeMapLayer(self.censusBlocks.id())
-        QgsMapLayerRegistry.instance().removeMapLayer(self.landMarkPolygon.id())
-        QgsMapLayerRegistry.instance().removeMapLayer(self.roads.id())
-        QgsMapLayerRegistry.instance().removeMapLayer(self.landMarkPoints.id())
-        QgsMapLayerRegistry.instance().removeMapLayer(self.demoGraphicData.id())
+        
+        if self.loaded > 0:
+            QgsMapLayerRegistry.instance().removeMapLayer(self.censusBlocks.id())
+            QgsMapLayerRegistry.instance().removeMapLayer(self.landMarkPolygon.id())
+            QgsMapLayerRegistry.instance().removeMapLayer(self.roads.id())
+            QgsMapLayerRegistry.instance().removeMapLayer(self.landMarkPoints.id())
+            QgsMapLayerRegistry.instance().removeMapLayer(self.demoGraphicData.id())
+        
+        else:
+            msg = "No Files are loaded."
+            QMessageBox.warning(self.dlg, "Error", msg)
+        #reset the flag to 0 when files are remove
+        self.loaded = 0
     
     #prompt user to choose a distance unit
     def validate_entries(self):
@@ -109,7 +121,5 @@ class Population:
             else:
                 msg += 'Buffer Unit:   \tMile'
             QMessageBox.information( self.dlg, 'USER INPUT', 'Buffer Range: \t'+str(int(self.dlg.ui.lcdNumber.value()))+msg,QMessageBox.Ok)
-            #akdjfl;kasdjfl;aksdjflkasdf
-            #akdjfl;kadjsf;lkaj
     
         
