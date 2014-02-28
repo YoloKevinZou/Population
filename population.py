@@ -60,15 +60,19 @@ class Population:
     #load census files on map
     def loadFiles(self):
         
+        #get path name
+        self.pathName = QFileDialog.getExistingDirectory()
+
         #set the loaded flag to 1 which means the file are loaded
         self.loaded = 1;
-        #load the shape files into vector later
-        self.roads = QgsVectorLayer("C:/Users/Kevin/Desktop/Denver/lkA08031.zip", "roads", "ogr")
-        self.landMarkPolygon = QgsVectorLayer("C:/Users/Kevin/Desktop/Denver/lpy08031.zip", "LandMark Polygons", "ogr")
-        self.landMarkPoints = QgsVectorLayer("C:/Users/Kevin/Desktop/Denver/lpt08031.zip", "LandMark Points", "ogr")
-        self.censusBlocks = QgsVectorLayer("C:/Users/Kevin/Desktop/Denver/grp0008031.zip", "Census Blocks", "ogr")
-        self.demoGraphicData = QgsVectorLayer("C:/Users/Kevin/Desktop/Denver/tgr08000sf1grp.dbf", "Demographic Data", "ogr")
         
+        #load the shape files into vector later
+        self.roads = QgsVectorLayer(str(self.pathName)+"/lkA08031.zip", "roads", "ogr")
+        self.landMarkPolygon = QgsVectorLayer(str(self.pathName)+"/lpy08031.zip", "LandMark Polygons", "ogr")
+        self.landMarkPoints = QgsVectorLayer(str(self.pathName)+"/lpt08031.zip", "LandMark Points", "ogr")
+        self.censusBlocks = QgsVectorLayer(str(self.pathName)+"/grp0008031.zip", "Census Blocks", "ogr")
+        self.demoGraphicData = QgsVectorLayer(str(self.pathName)+"/tgr08000sf1grp.dbf", "Demographic Data", "ogr")
+    
         #add the shape file onto map layer
         QgsMapLayerRegistry.instance().addMapLayer(self.censusBlocks)
         QgsMapLayerRegistry.instance().addMapLayer(self.landMarkPolygon)
@@ -122,6 +126,50 @@ class Population:
             else:
                 msg += 'Buffer Unit:   \tMile'
             QMessageBox.information( self.dlg, 'USER INPUT', 'Buffer Range: \t'+str(int(self.dlg.ui.lcdNumber.value()))+msg,QMessageBox.Ok)
-            #adfasdf
-    
+            
+
+            layer = self.censusBlocks
+
+            '''
+            provider = layer.dataProvider()
+            layer.select(provider.attributeIndexes())
+
+            for feature in layer.getFeatures():
+                print feature
+            '''
+            #idx = layer.fieldNameIndex('STFID')
+            
+            #print feature.attributes()[idx]
+
+            '''for feature in i:
+              # retreive every feature with its geometry and attributes
+                # fetch geometry
+                geom = feature.geometry()
+                print "Feature ID %d: " % feature.id()
+
+                # show some information about the feature
+                if geom.vectorType() == QGis.Point:
+                  x = geom.asPoint()
+                  print "Point: " + str(x)
+                elif geom.vectorType() == QGis.Line:
+                  x = geom.asPolyline()
+                  print "Line: %d points" % len(x)
+                elif geom.vectorType() == QGis.Polygon:
+                  x = geom.asPolygon()
+                  numPts = 0
+                  for ring in x:
+                    numPts += len(ring)
+                  print "Polygon: %d rings with %d points" % (len(x), numPts)
+                else:
+                  print "Unknown"
+
+                # fetch attributes
+                attrs = feature.attributes()
+
+                # attrs is a list. It contains all the attribute values of this feature
+                print attrs
+
+                #idx = layer.fieldNameIndex('name')
+                #print feature.attributes()[idx]
+            '''
         
