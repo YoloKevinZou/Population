@@ -21,10 +21,10 @@
 """
 
 from PyQt4 import QtCore, QtGui
-from ui_start import Ui_Start
+from ui_loadcity import Ui_loadCity 
 # create the dialog for zoom to point
 
-class StartDialog(QtGui.QDialog):
+class Load_City_Dialog(QtGui.QDialog):
     def __init__(self):
         QtGui.QDialog.__init__(self)
         # Set up the user interface from Designer.
@@ -32,5 +32,5 @@ class StartDialog(QtGui.QDialog):
         # self.<objectname>, and you can use autoconnect slots - see
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
-        self.ui = Ui_Start()
+        self.ui = Ui_loadCity()
         self.ui.setupUi(self)

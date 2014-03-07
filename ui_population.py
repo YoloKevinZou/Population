@@ -64,6 +64,5 @@ class Ui_Population(object):
         Population.setWindowTitle(_translate("Population", "Population", None))
         self.mileButton.setText(_translate("Population", "Miles", None))
         self.kmButton.setText(_translate("Population", "Kilometers", None))
-        self.loadFile.setText(_translate("Population", "Load File", None))
-        self.removeFile.setText(_translate("Population", "Remove File", None))
-
+        self.loadFile.setText(_translate("Population", "Load City", None))
+        self.removeFile.setText(_translate("Population", "Remove City", None))
